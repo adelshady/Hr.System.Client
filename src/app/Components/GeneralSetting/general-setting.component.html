@@ -1,0 +1,102 @@
+<section class="gradient-custom sec">
+    <div class="container py-5 h-100">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12 col-lg-9 col-xl-7">
+          <div
+            class="card shadow-2-strong card-registration"
+            style="border-radius: 15px"
+          >
+            <div class="card-body p-4 p-md-5">
+              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">
+                General Settings
+              </h3>
+              <form [formGroup]="GeneralSetting" (submit)="OnSubmit($event)"  >
+                <input type="hidden" name="id" formControlName="id" />
+                <div class="row d-flex">
+                  <button class="col-4 btn btn-md" [ngClass]="{'btn-secondary': !show, 'btn-danger': show}" (click)="ShowEmployees()">
+                    {{ show ? 'Cancel' : 'Add Custom Settings' }}
+                  </button>
+                  
+                
+                  <div class="col-6" *ngIf="show">
+                    <select id="empid" class="select form-control-lg w-100" name="empid" formControlName="empid" (click)="selectemployee()">
+                      <option value="" disabled selected>Select Employee</option>
+                      <option *ngFor="let emp of setting.employeeList" [value]="emp.value">{{ emp.text }}</option>
+                    </select>
+                  </div>
+                  
+                </div>
+                
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                      <label class="form-label" for="overtimeHour">Over Time Hour</label>
+                      <input
+                        min="0"
+                        [value]="setting.overtimeHour"
+                        type="number"
+                        id="overtimeHour"
+                        name="overtimeHour"
+                        formControlName="overtimeHour"
+                        class="form-control form-control-lg"
+                      />
+                    </div>
+                    <div *ngIf="ControlName.overtimeHour.touched">
+                      <p *ngIf="ControlName.overtimeHour.hasError('min')" class="text-danger">value cant be less than zero</p>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                      <label class="form-label" for="discountHour">discount Hour</label>
+                      <input
+                        min="0"
+                        [value]="setting.discountHour"
+                        type="number"
+                        id="discountHour"
+                        name="discountHour"
+                        formControlName="discountHour"
+                        class="form-control form-control-lg"
+                      />
+                    </div>
+                    <div *ngIf="ControlName.discountHour.touched">
+                      <p *ngIf="ControlName.discountHour.hasError('min')" class="text-danger"> {{setting.discountHour}}value cant be less than zero</p>
+                    </div>
+                  </div>
+                </div>
+                <h5 class="pb-2 pb-md-0 mb-md-3">Weak Holiday</h5>
+  
+                <div *ngFor="let day of setting.weekends">
+                  <label>
+                    <input type="checkbox" [checked]="day.isSelected" (change)="itemSelectionChanged(day,$event)" />
+                    {{ day.displayValue }}
+                  </label>
+                </div>
+                
+                
+                <div class="mt-4 pt-2 d-flex justify-content-end">
+                  
+                  
+                  <button *ngIf="flag"
+                    class="btn btn-md btn-danger me-2 "                   
+                   (click)="onDelete(this.generalSettingId)"
+                  >Delete
+                  </button>
+                  <button *ngIf="flag"
+                    class="btn btn-md btn-warning me-2"
+                    (click)="onEdit(this.generalSettingId)"
+                  >Edit
+                  </button>
+                  <button *ngIf="flag2"
+                    class="btn btn-md btn-primary "
+                    type="submit"
+                  >Save
+                  </button>
+                </div>
+               
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
